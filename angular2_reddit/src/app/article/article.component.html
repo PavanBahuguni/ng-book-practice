@@ -12,7 +12,8 @@
   <a class="ui large header" href="{{article.link}}">
     {{article.title}}
   </a>
-  <ul class="ui bi horizontal lit voters">
+  <div class="meta">({{article.domain()}})</div>
+  <ul class="ui bi horizontal list voters">
     <li class="item">
       <a href (click)="voteUp()">
         <i class="arrow up icon"></i>
