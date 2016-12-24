@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import { Article } from './article.model';
 @Component({
   selector: 'app-article',
   templateUrl: './article.component.html',
@@ -9,22 +9,22 @@ import { Component, OnInit } from '@angular/core';
   }
 })
 export class ArticleComponent implements OnInit {
-  votes: number;
-  title: string;
-  link: string;
+  article: Article;
   constructor() {
-    this.title = 'Angular 2';
-    this.link = 'http://anular.io';
-    this.votes =10;
-  }
-  voteUp():boolean{
-    this.votes +=1;
-    return false;
-  }
-  voteDown():boolean{
-    this.votes -=1;
-    return false;
-  }
+    this. article = new Article(
+      'Angular 2',
+      'http://angular.io',
+      10
+    );
+   }
+   voteUp():boolean{
+     this.article.voteup();
+     return false;
+   }
+   voteDown():boolean{
+     this.article.voteDown();
+     return false;
+   }
   ngOnInit() {
   }
 
