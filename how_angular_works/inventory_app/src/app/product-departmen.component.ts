@@ -8,7 +8,7 @@ import { Product } from './app.component';
     <div class="product-department">
         <span *ngFor="let name of product.department; let i=index">
           <a href="#">{{name}}</a>
-          <span>{{i < (product.length-1)?'>':''}}</span>
+          <span>{{i < (product.department.length-1)?'>':''}}</span>
         </span>
     </div>
   `,
