@@ -7,8 +7,11 @@ import { Product } from './app.component';
   host:{'class':'item'},
   template:`
       <product-image [product]="product"></product-image>
-      <div>
-        <div class="product-sku">SKU #{{product.sku}}</div>
+      <div class="content">
+        <div class="header">{{product.name}}</div>
+        <div class="meta">
+          <div class="product-sku">SKU #{{product.sku}}</div>
+        </div>
         <div class="description">
           <product-department [product]="product"></product-department>
         </div>

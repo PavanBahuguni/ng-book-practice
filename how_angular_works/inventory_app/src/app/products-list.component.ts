@@ -6,10 +6,11 @@ import { Product } from './app.component';
   inputs: ['productList'],
   outputs: ['onProductSelected'],
   template: `
-    <div>
+    <div class="ui items">
       <product-row *ngFor="let myProduct of productList"
         [product]="myProduct"
-        (click)="clicked(myProduct)">
+        (click)="clicked(myProduct)"
+        [class.selected]="isSelected(myProduct)">
       </product-row>
     </div>
   `,
