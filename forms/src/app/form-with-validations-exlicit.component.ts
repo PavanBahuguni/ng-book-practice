@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, AbstractControl, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, AbstractControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-form-with-validations-exlicit',
@@ -9,11 +9,11 @@ import { FormBuilder, FormGroup, AbstractControl, Validators } from '@angular/fo
     <form [formGroup]='myForm' (ngSubmit)="onSubmit(myForm.value)" class="ui form">
       <div class="field" [class.error]="!sku.valid && sku.touched">
         <label for="skuInput">SKU</label>
-        <input type="text" id="skuInput" placeholder="SKU" name=sku [style.width.%]="50" [formControl]="myForm.controls['sku']"><br><br>
+        <input type="text" id="skuInput" placeholder="SKU" name="sku" [style.width.%]="50" [formControl]="myForm.controls['sku']"><br><br>
         <p *ngIf="!sku.valid">SKU is invalid</p>
         <p *ngIf="sku.hasError('required')">SKU is required</p>
+        <p *ngIf="sku.hasError('invalidSku')">SKU is required to start with 123</p>
         <p *ngIf="!myForm.valid">Form is invalid</p>
-
         <button type="submit" class="ui button">Submit</button>
       </div>
     </form>
@@ -22,18 +22,37 @@ import { FormBuilder, FormGroup, AbstractControl, Validators } from '@angular/fo
   styleUrls: ['./styles.css']
 })
 export class FormWithValidationsExlicitComponent{
-myForm: FormGroup;
-sku : AbstractControl;
+  myForm: FormGroup;
+  sku : AbstractControl;
 
-constructor(fb:FormBuilder){
-  this.myForm = fb.group({
-    'sku':['', Validators.required]
-  });
-  this.sku = this.myForm.controls['sku'];
-  console.log(this.sku.valid);
-}
+  constructor(fb:FormBuilder){
+    this.myForm = fb.group({
+      'sku':['', Validators.compose([Validators.required, this.skuValidator])]
+    });
+    this.sku = this.myForm.controls['sku'];
 
-onSubmit(value:string){
-  console.log('you submitted value: ', value, this.sku.valid);
-}
+    this.sku.valueChanges.subscribe(
+      (value: string) => {
+        console.log('sku changed to: ', value);
+      }
+    );
+
+    this.myForm.valueChanges.subscribe(
+      (value: string) => {
+        console.log('Form changed to: ', value);
+      }
+    );
+  }
+
+  onSubmit(value:string){
+    console.log('you submitted value: ', value, this.sku.valid);
+  }
+
+  skuValidator(control:FormControl):{[s:string]:boolean}{
+    if(!control.value.match(/^123/)){
+      return {invalidSku:true};
+    }
+  }
+
+
 }
