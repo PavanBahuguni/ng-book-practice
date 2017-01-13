@@ -1,19 +1,27 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import {Http, Response } from '@angular/http';
 
 @Component({
   selector: 'app-simple-http',
   template: `
-    <p>
-      simple-http Works!
-    </p>
+    <h2> Basic Request</h2>
+    <button type=button (click)="makeRequest()">Make Request</button>
+    <div *ngIf="loading">loading...</div>
+    <pre>{{data | json}}</pre>
   `,
   styles: []
 })
-export class SimpleHttpComponent implements OnInit {
+export class SimpleHttpComponent {
+  data : Object;
+  loading : boolean;
 
-  constructor() { }
-
-  ngOnInit() {
+  constructor(private http: Http) { }
+  makeRequest():void {
+    this.loading = true;
+    this.http.request('http://jsonplaceholder.typicode.com/posts')
+      .subscribe((res:Response)=>{
+        this.data = res.json();
+        this.loading = false;
+      });
   }
-
 }
