@@ -125,7 +125,7 @@ export class SearchBox implements OnInit{
   inputs:['result'],
   selector: 'search-result',
   template:`
-    <div class="col-sm-6 col-mf-3">
+    <div class="col-sm-6 col-md-3">
       <div class="thumbnail">
         <img src="{{result.thumbnailUrl}}">
         <div class="caption">
