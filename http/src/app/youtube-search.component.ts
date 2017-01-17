@@ -37,6 +37,7 @@ class SearchResult {
 }
 
 
+
 @Injectable()
 export class YouTubeService {
   constructor( private http: Http,
