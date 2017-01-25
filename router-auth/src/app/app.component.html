@@ -1,0 +1,28 @@
+<div class="page-header">
+     <div class="container">
+       <h1>Router Sample</h1>
+       <div class="navLinks">
+         <a [routerLink]="['/home']">Home</a>
+         <a [routerLink]="['/about']">About</a>
+         <a [routerLink]="['/protected']">Protected</a>
+       </div>
+     </div>
+</div>
+<form class="form-inline" *ngIf="!authService.getUser()">
+  <div class="form-group">
+    <label  for="username">Username: </label>
+    <input class="form-control" name="username" #username>
+  </div><br><br>
+  <div class="form-group">
+    <label  for="password">Password: </label>
+    <input class="form-control" type="password" name="password" #password>
+  </div><br>
+  <button class="btn btn-primary" (click)="login(username.value, password.value)">Submit</button>
+  <br><br><br>
+  <div class="alert alert-danger" role="alert" *ngIf="message">{{message}}</div>
+</form>
+<div class="well" *ngIf="authService.getUser()">
+  Looged in as <b> {{authService.getUser()}}</b>
+  <a href (click)="logout()">Log out</a>
+</div>
+<router-outlet></router-outlet>
